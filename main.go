@@ -127,7 +127,7 @@ func pollOnce(client *http.Client) error {
 	}
 	memPct := (float64(memUsed) / float64(memTotal)) * 100.0
 	if memPct > memoryUsageThreshold {
-		fmt.Printf("Memory usage too high: %f%%\n", memPct)
+		fmt.Printf("Memory usage too high: %d%%\n", int(memPct))
 	}
 
 	// 3) Disk usage
@@ -148,8 +148,8 @@ func pollOnce(client *http.Client) error {
 	netPct := (float64(netUsed) / float64(netCap)) * 100.0
 	if netPct > networkBandwidthThreshold {
 		freeBytesPerSec := float64(netCap - netUsed)
-		freeMbit := (freeBytesPerSec * 8.0) / 1_000_000.0
-		fmt.Printf("Network bandwidth usage high: %f Mbit/s available\n", freeMbit)
+		freeMbit := (freeBytesPerSec) / 1_000_000.0
+		fmt.Printf("Network bandwidth usage high: %d Mbit/s available\n", int(freeMbit))
 	}
 
 	return nil
